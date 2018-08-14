@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<body>
+<section layout:fragment="content">
+    <div class="content-wrapper">
+        <h3>网页收藏工具</h3>
+        <span>网页收集小工具</span>
+        <a th:href="@{${path}}" onclick="alert('请把这个按钮拖到您的浏览器书签栏'); return false;" class="btn btn-primary">网页收藏工具</a>
+        <span>(将该按钮拖动至浏览器书签栏)</span>
+    </div>
+</section>
+</body>
+</html>
