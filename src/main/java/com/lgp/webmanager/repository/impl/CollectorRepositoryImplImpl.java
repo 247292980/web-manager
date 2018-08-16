@@ -1,10 +1,9 @@
 package com.lgp.webmanager.repository.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Follow;
 import com.lgp.webmanager.repository.CollectorRepository;
 import com.lgp.webmanager.util.DateUtil;
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 收藏文章最多的用户
      */
     @Override
-    @LoggerManage(description = "收藏文章最多的用户")
+    @Log(description = "收藏文章最多的用户")
     public Long getMostCollectUser() throws IndexOutOfBoundsException {
         String querySql = "SELECT c.user_id ,COUNT(1) AS counts FROM collect c " +
                 "WHERE type='PUBLIC' AND is_delete='NO' GROUP BY c.user_id ORDER BY counts DESC LIMIT 1";
@@ -40,7 +39,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 被关注最多的用户
      */
     @Override
-    @LoggerManage(description = "被关注最多的用户")
+    @Log(description = "被关注最多的用户")
     public Long getMostFollowedUser(Long notUserId) throws IndexOutOfBoundsException{
         String querySql = "SELECT id,follow_id as user_id,COUNT(1) AS counts FROM follow \n" +
                 "WHERE status='FOLLOW' " +
@@ -59,7 +58,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 文章被赞最多的用户
      */
     @Override
-    @LoggerManage(description = "文章被赞最多的用户")
+    @Log(description = "文章被赞最多的用户")
     public Long getMostPraisedUser(String notUserIds) throws IndexOutOfBoundsException{
         String querySql = "SELECT c.user_id,SUM(p.counts) as counts FROM collect c LEFT JOIN \n" +
                 "(SELECT collect_id,COUNT(1) as counts FROM praise GROUP BY collect_id)p \n" +
@@ -78,7 +77,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 文章被评论最多的用户
      */
     @Override
-    @LoggerManage(description = "文章被评论最多的用户")
+    @Log(description = "文章被评论最多的用户")
     public Long getMostCommentedUser(String notUserIds) throws IndexOutOfBoundsException{
         String querySql="SELECT c.user_id,SUM(p.counts) as counts FROM collect c LEFT JOIN \n" +
                 "(SELECT collect_id,COUNT(1) as counts FROM `comment` GROUP BY collect_id)p \n" +
@@ -97,7 +96,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 最受欢迎的用户
      */
     @Override
-    @LoggerManage(description = "最受欢迎的用户")
+    @Log(description = "最受欢迎的用户")
     public Long getMostPopularUser(String notUserIds) throws IndexOutOfBoundsException{
         String querySql = "SELECT u.user_id,SUM(u.counts) as counts FROM\n" +
                 "(SELECT c.user_id,COUNT(1) as counts FROM collect c LEFT JOIN notice n ON c.id=n.collect_id WHERE c.type='PUBLIC' AND c.is_delete='NO' GROUP BY c.user_id\n" +
@@ -117,7 +116,7 @@ public class CollectorRepositoryImplImpl extends BaseNativeSqlRepositoryImpl imp
      * 近一个月最活跃用户
      */
     @Override
-    @LoggerManage(description = "近一个月最活跃用户")
+    @Log(description = "近一个月最活跃用户")
     public Long getMostActiveUser(String notUserIds) throws IndexOutOfBoundsException {
         long nowTime = DateUtil.getCurrentTime();
         long lastMonth = DateUtil.getLastMonthTime();

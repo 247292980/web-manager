@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Config;
 import com.lgp.webmanager.repository.ConfigRepository;
 import com.lgp.webmanager.service.ConfigService;
@@ -26,7 +26,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "保存属性设置")
+    @Log(description = "保存属性设置")
     public Config saveConfig(Long userId, String favoritesId) {
         Config config = new Config();
         config.setUserId(userId);
@@ -44,7 +44,7 @@ public class ConfigServiceImpl implements ConfigService {
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "保存属性设置")
+    @Log(description = "保存属性设置")
     public void updateConfig(Long id, String type, String defaultFavorites) {
         Config config = configRepository.findOne(id);
         String value = "";

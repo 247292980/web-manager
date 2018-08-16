@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Config;
 import com.lgp.webmanager.domain.Favorites;
 import com.lgp.webmanager.domain.enums.ExceptionMsg;
@@ -45,7 +45,7 @@ public class FavoritesController extends BaseController {
      * 新建收藏夹
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @LoggerManage(description = "新建收藏夹")
+    @Log(description = "新建收藏夹")
     public Response addFavorites(String name) {
         if (StringUtils.isNotBlank(name)) {
             Favorites favorites = favoritesRepository.findByUserIdAndName(super.getUserId(), name);
@@ -71,7 +71,7 @@ public class FavoritesController extends BaseController {
      * 导入收藏夹
      */
     @RequestMapping(value = "/addImportFavorites", method = RequestMethod.POST)
-    @LoggerManage(description = "导入收藏夹")
+    @Log(description = "导入收藏夹")
     public ResponseData addImportFavorites() {
         Favorites favorites = favoritesRepository.findByUserIdAndName(super.getUserId(), "导入自浏览器");
         if (null == favorites) {
@@ -88,7 +88,7 @@ public class FavoritesController extends BaseController {
      * 修改收藏夹
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @LoggerManage(description = "修改收藏夹")
+    @Log(description = "修改收藏夹")
     public Response updateFavorites(String favoritesName, Long favoritesId) {
         if (StringUtils.isNotBlank(favoritesName) && null != favoritesId) {
             Favorites fav = favoritesRepository.findOne(favoritesId);
@@ -116,7 +116,7 @@ public class FavoritesController extends BaseController {
      * 删除收藏夹
      */
     @RequestMapping(value = "/del", method = RequestMethod.POST)
-    @LoggerManage(description = "删除收藏夹")
+    @Log(description = "删除收藏夹")
     public Response delFavorites(Long id) {
         if (null == id) {
             return result(ExceptionMsg.FAILED);
@@ -146,7 +146,7 @@ public class FavoritesController extends BaseController {
      * 获取收藏夹
      */
     @RequestMapping(value = "/getFavorites/{userId}", method = RequestMethod.POST)
-    @LoggerManage(description = "获取收藏夹")
+    @Log(description = "获取收藏夹")
     public List<Favorites> getFavorites(@PathVariable("userId") Long userId) {
         List<Favorites> favorites = null;
         try {

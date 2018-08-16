@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.*;
 import com.lgp.webmanager.domain.enums.StatusEnum;
 import com.lgp.webmanager.repository.*;
@@ -53,7 +53,7 @@ public class IndexController extends BaseController {
      * 首页
      * */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    @LoggerManage(description = "首页")
+    @Log(description = "首页")
     public String index(Model model) {
 //        IndexCollector indexCollector = collectorService.getCollectors();
 //        model.addAttribute("collector", indexCollector);
@@ -68,7 +68,7 @@ public class IndexController extends BaseController {
      * 登陆后首页
      * */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    @LoggerManage(description = "登陆后首页")
+    @Log(description = "登陆后首页")
     public String home(Model model) {
         long size = collectRepository.countByUserIdAndIsDelete(super.getUserId(),StatusEnum.IS_DELETE_NO.getValue());
         Config config = configRepository.findByUserId(super.getUserId());
@@ -89,7 +89,7 @@ public class IndexController extends BaseController {
      * 登陆页面
      * */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    @LoggerManage(description = "登陆页面")
+    @Log(description = "登陆页面")
     public String login() {
         return "login";
     }
@@ -98,7 +98,7 @@ public class IndexController extends BaseController {
      * 注册页面
      * */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    @LoggerManage(description = "注册页面")
+    @Log(description = "注册页面")
     public String regist() {
         return "register";
     }
@@ -107,7 +107,7 @@ public class IndexController extends BaseController {
      * 工具页面
      */
     @RequestMapping(value = "/tool")
-    @LoggerManage(description = "工具页面")
+    @Log(description = "工具页面")
     public String tool(Model model) {
         String path = "javascript:(function()%7Bvar%20description;var%20desString=%22%22;var%20metas=document.getElementsByTagName('meta');for(var%20x=0,y=metas.length;x%3Cy;x++)%7Bif(metas%5Bx%5D.name.toLowerCase()==%22description%22)%7Bdescription=metas%5Bx%5D;%7D%7Dif(description)%7BdesString=%22&amp;description=%22+encodeURIComponent(description.content);%7Dvar%20win=window.open(%22"
                 + ConstUtil.BASE_PATH
@@ -120,7 +120,7 @@ public class IndexController extends BaseController {
      * 收藏夹导入页面
      * */
     @RequestMapping(value = "/import")
-    @LoggerManage(description = "收藏夹导入页面")
+    @Log(description = "收藏夹导入页面")
     public String importm() {
         return "favorites/import";
     }
@@ -129,7 +129,7 @@ public class IndexController extends BaseController {
      * 新建收藏夹页面
      * */
     @RequestMapping(value = "/newFavorites")
-    @LoggerManage(description = "新建收藏夹页面")
+    @Log(description = "新建收藏夹页面")
     public String newFavorites() {
         return "favorites/newfavorites";
     }
@@ -138,7 +138,7 @@ public class IndexController extends BaseController {
      * 意见反馈页面
      * */
     @RequestMapping(value = "/feedback")
-    @LoggerManage(description = "意见反馈页面")
+    @Log(description = "意见反馈页面")
     public String feedback(Model model) {
         User user = null;
         user = userRepository.findOne(getUserId());
@@ -150,7 +150,7 @@ public class IndexController extends BaseController {
      * 收藏页面
      * */
     @RequestMapping(value = "/collect", method = RequestMethod.GET)
-    @LoggerManage(description = "收藏页面")
+    @Log(description = "收藏页面")
     public String collect(Model model) {
         List<Favorites> favoritesList = favoritesRepository.findByUserId(getUserId());
         Config config = configRepository.findByUserId(getUserId());
@@ -166,7 +166,7 @@ public class IndexController extends BaseController {
      * 登出
      * */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    @LoggerManage(description = "登出")
+    @Log(description = "登出")
     public String logout(HttpServletResponse response, Model model) {
         getSession().removeAttribute(ConstUtil.LOGIN_SESSION_KEY);
         getSession().removeAttribute(ConstUtil.LAST_REFERER);
@@ -183,7 +183,7 @@ public class IndexController extends BaseController {
      * 忘记密码页面
      * */
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
-    @LoggerManage(description = "忘记密码页面")
+    @Log(description = "忘记密码页面")
     public String forgotPassword() {
         return "user/forgotpassword";
     }
@@ -192,7 +192,7 @@ public class IndexController extends BaseController {
      * 忘记密码-设置新密码
      * */
     @RequestMapping(value = "/newPassword", method = RequestMethod.GET)
-    @LoggerManage(description = "忘记密码-设置新密码")
+    @Log(description = "忘记密码-设置新密码")
     public String newPassword(String email) {
         return "user/newpassword";
     }
@@ -201,7 +201,7 @@ public class IndexController extends BaseController {
      * 上传你头像页面
      * */
     @RequestMapping(value = "/uploadHeadPortrait")
-    @LoggerManage(description = "上传你头像页面")
+    @Log(description = "上传你头像页面")
     public String uploadHeadPortrait() {
         return "user/uploadheadportrait";
     }
@@ -210,7 +210,7 @@ public class IndexController extends BaseController {
      * 收藏夹导出页面
      * */
     @RequestMapping(value = "/export")
-    @LoggerManage(description = "收藏夹导出页面")
+    @Log(description = "收藏夹导出页面")
     public String export(Model model) {
         List<Favorites> favoritesList = favoritesRepository.findByUserId(getUserId());
         model.addAttribute("favoritesList", favoritesList);
@@ -221,7 +221,7 @@ public class IndexController extends BaseController {
      * 上传背景页面
      * */
     @RequestMapping(value = "/uploadBackground")
-    @LoggerManage(description = "上传背景页面")
+    @Log(description = "上传背景页面")
     public String uploadBackground() {
         return "user/uploadbackground";
     }
@@ -230,7 +230,7 @@ public class IndexController extends BaseController {
      * 首页收藏家个人首页
      */
     @RequestMapping(value = "/collector/{userId}/{favoritesId:[0-9]*}")
-    @LoggerManage(description = "首页收藏家个人首页")
+    @Log(description = "首页收藏家个人首页")
     public String collectorPageShow(Model model
             , @PathVariable("userId") Long userId
             , @PathVariable("favoritesId") Long favoritesId

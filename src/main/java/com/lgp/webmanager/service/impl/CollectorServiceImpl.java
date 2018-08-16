@@ -1,11 +1,10 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.IndexCollector;
 import com.lgp.webmanager.repository.CollectorRepository;
 import com.lgp.webmanager.repository.UserRepository;
 import com.lgp.webmanager.service.CollectorService;
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class CollectorServiceImpl implements CollectorService {
      * 首页获取收藏家
      */
     @Override
-    @LoggerManage(description = "首页获取收藏家")
+    @Log(description = "首页获取收藏家")
     public IndexCollector getCollectors() {
         IndexCollector indexCollector = new IndexCollector();
         Long mostCollectUser = collectorRepository.getMostCollectUser();

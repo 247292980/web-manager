@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Config;
 import com.lgp.webmanager.domain.Favorites;
 import com.lgp.webmanager.domain.User;
@@ -74,7 +74,7 @@ public class UserController extends BaseController {
      * 登陆
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @LoggerManage(description = "登陆")
+    @Log(description = "登陆")
     public ResponseData login(User user, HttpServletResponse response) {
         try {
             User loginUser = userRepository.findByUserNameOrEmail(user.getUserName(), user.getEmail());
@@ -107,7 +107,7 @@ public class UserController extends BaseController {
      * 注册
      */
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
-    @LoggerManage(description = "注册")
+    @Log(description = "注册")
     public Response create(User user) {
         try {
             User registerUser = userRepository.findByEmail(user.getEmail());
@@ -140,7 +140,7 @@ public class UserController extends BaseController {
      * 获取收藏夹
      */
     @RequestMapping(value = "/getFavorites", method = RequestMethod.POST)
-    @LoggerManage(description = "获取收藏夹")
+    @Log(description = "获取收藏夹")
     public List<Favorites> getFavorites() {
         List<Favorites> favorites = null;
         try {
@@ -156,7 +156,7 @@ public class UserController extends BaseController {
      * 获取属性设置
      */
     @RequestMapping(value = "/getConfig", method = RequestMethod.POST)
-    @LoggerManage(description = "获取属性设置")
+    @Log(description = "获取属性设置")
     public Config getConfig() {
         Config config = new Config();
         try {
@@ -172,7 +172,7 @@ public class UserController extends BaseController {
      * 获取关注列表
      */
     @RequestMapping(value = "/getFollows")
-    @LoggerManage(description = "获取关注列表")
+    @Log(description = "获取关注列表")
     public List<String> getFollows() {
         List<String> followList = followRepository.findByUserId(getUserId());
         return followList;
@@ -182,7 +182,7 @@ public class UserController extends BaseController {
      * 忘记密码-发送重置邮件
      */
     @RequestMapping(value = "/sendForgotPasswordEmail", method = RequestMethod.POST)
-    @LoggerManage(description = "发送忘记密码邮件")
+    @Log(description = "发送忘记密码邮件")
     public Response sendForgotPasswordEmail(String email) {
         try {
             User registerUser = userRepository.findByEmail(email);
@@ -220,7 +220,7 @@ public class UserController extends BaseController {
      * 忘记密码-设置新密码
      */
     @RequestMapping(value = "/setNewPassword", method = RequestMethod.POST)
-    @LoggerManage(description = "设置新密码")
+    @Log(description = "设置新密码")
     public Response setNewPassword(String newpwd, String email, String sid) {
         try {
             User user = userRepository.findByEmail(email);
@@ -248,7 +248,7 @@ public class UserController extends BaseController {
      * 修改密码
      */
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    @LoggerManage(description = "修改密码")
+    @Log(description = "修改密码")
     public Response updatePassword(String oldPassword, String newPassword) {
         try {
             User user = super.getUser();
@@ -273,7 +273,7 @@ public class UserController extends BaseController {
      * 修改个人简介
      */
     @RequestMapping(value = "/updateIntroduction", method = RequestMethod.POST)
-    @LoggerManage(description = "修改个人简介")
+    @Log(description = "修改个人简介")
     public ResponseData updateIntroduction(String introduction) {
         try {
             User user = super.getUser();
@@ -291,7 +291,7 @@ public class UserController extends BaseController {
      * 修改昵称
      */
     @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
-    @LoggerManage(description = "修改昵称")
+    @Log(description = "修改昵称")
     public ResponseData updateUserName(String userName) {
         try {
             User loginUser = super.getUser();
@@ -348,7 +348,7 @@ public class UserController extends BaseController {
      * 上传背景
      */
     @RequestMapping(value = "/uploadBackground", method = RequestMethod.POST)
-    @LoggerManage(description = "上传背景")
+    @Log(description = "上传背景")
     public ResponseData uploadBackground(String dataUrl) {
         try {
             String filePath = staticUrl + fileBackgroundpicturesUrl;

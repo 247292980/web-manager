@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Notice;
 import com.lgp.webmanager.domain.User;
 import com.lgp.webmanager.domain.CollectSummary;
@@ -46,7 +46,7 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
-	@LoggerManage(description = "保存消息通知")
+	@Log(description = "保存消息通知")
 	public void saveNotice(String collectId, String type, Long userId, String operId){
 		Notice notice = new Notice();
 		if(StringUtils.isNotBlank(collectId)){
@@ -67,7 +67,7 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
-	@LoggerManage(description = "展示消息通知")
+	@Log(description = "展示消息通知")
 	public List<CollectSummary> getNoticeCollects(String type, Long userId, Pageable pageable) {
 		// TODO Auto-generated method stub
 		Page<CollectSummaryView> views = noticeRepository.findViewByUserIdAndType(userId, type, pageable);

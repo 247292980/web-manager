@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.CollectSummary;
 import com.lgp.webmanager.domain.Favorites;
 import com.lgp.webmanager.domain.LetterSummary;
@@ -57,7 +57,7 @@ public class HomeController extends BaseController {
      * 收藏列表standard
      * */
     @RequestMapping(value = "/standard/{type}/{userId}")
-    @LoggerManage(description = "收藏列表standard")
+    @Log(description = "收藏列表standard")
     public String standard(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size
@@ -94,7 +94,7 @@ public class HomeController extends BaseController {
      * 收藏列表simple
      * */
     @RequestMapping(value = "/simple/{type}/{userId}")
-    @LoggerManage(description = "收藏列表simple")
+    @Log(description = "收藏列表simple")
     public String simple(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "20") Integer size
@@ -131,7 +131,7 @@ public class HomeController extends BaseController {
      * 个人首页
      */
     @RequestMapping(value = "/user/{userId}/{favoritesId}")
-    @LoggerManage(description = "个人首页")
+    @Log(description = "个人首页")
     public String userPageShow(Model model
             , @PathVariable("userId") Long userId
             , @PathVariable("favoritesId") Long favoritesId
@@ -190,7 +190,7 @@ public class HomeController extends BaseController {
      * 个人首页内容替换
      */
     @RequestMapping(value = "/usercontent/{userId}/{favoritesId}")
-    @LoggerManage(description = "个人首页内容替换")
+    @Log(description = "个人首页内容替换")
     public String userContentShow(Model model
             , @PathVariable("userId") Long userId
             , @PathVariable("favoritesId") Long favoritesId
@@ -232,7 +232,7 @@ public class HomeController extends BaseController {
      * 搜索
      */
     @RequestMapping(value = "/search/{key}")
-    @LoggerManage(description = "搜索")
+    @Log(description = "搜索")
     public String search(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "20") Integer size
@@ -254,7 +254,7 @@ public class HomeController extends BaseController {
      * 消息通知@我
      */
     @RequestMapping(value = "/notice/atMe")
-    @LoggerManage(description = "消息通知@我的")
+    @Log(description = "消息通知@我的")
     public String atMe(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size) {
@@ -270,7 +270,7 @@ public class HomeController extends BaseController {
      * 消息通知评论我
      */
     @RequestMapping(value = "/notice/commentMe")
-    @LoggerManage(description = "消息通知评论我")
+    @Log(description = "消息通知评论我")
     public String commentMe(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size) {
@@ -286,7 +286,7 @@ public class HomeController extends BaseController {
      * 消息通知赞我的
      */
     @RequestMapping(value = "/notice/praiseMe")
-    @LoggerManage(description = "消息通知赞我的")
+    @Log(description = "消息通知赞我的")
     public String praiseMe(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size) {
@@ -302,7 +302,7 @@ public class HomeController extends BaseController {
      * 浏览记录 标准显示
      */
     @RequestMapping(value = "/lookRecord/standard/{type}/{userId}")
-    @LoggerManage(description = "浏览记录lookRecord")
+    @Log(description = "浏览记录lookRecord")
     public String getLookRecordStandard(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size
@@ -329,7 +329,7 @@ public class HomeController extends BaseController {
      * 浏览记录 简单显示
      */
     @RequestMapping(value = "/lookRecord/simple/{type}/{userId}")
-    @LoggerManage(description = "浏览记录lookRecord")
+    @Log(description = "浏览记录lookRecord")
     public String getLookRecordSimple(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "20") Integer size
@@ -352,7 +352,7 @@ public class HomeController extends BaseController {
     }
 
     @RequestMapping("/letter/letterMe")
-    @LoggerManage(description = "私信我的页面展示")
+    @Log(description = "私信我的页面展示")
     public String letterMe(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "15") Integer size) {

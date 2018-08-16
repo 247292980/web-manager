@@ -2,7 +2,6 @@ package com.lgp.webmanager.comm.aop;
 
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -19,24 +18,24 @@ import org.springframework.stereotype.Service;
  */
 @Aspect
 @Service
-public class LoggerAdvice {
+public class LogAspect {
     protected org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Before("within(com.lgp.webmanager..*) && @annotation(loggerManage)")
-    public void addBeforeLogger(JoinPoint joinPoint, LoggerManage loggerManage) {
-        logger.info("执行 " + loggerManage.description() + " 开始");
+    @Before("within(com.lgp.webmanager..*) && @annotation(log)")
+    public void addBeforeLogger(JoinPoint joinPoint, Log log) {
+        logger.info("执行 " + log.description() + " 开始");
         logger.info("地址 "+joinPoint.getSignature().toString());
         logger.info("参数 "+this.parseParames(joinPoint.getArgs()));
     }
 
-    @AfterReturning("within(com.lgp.webmanager..*) && @annotation(loggerManage)")
-    public void addAfterReturningLogger(JoinPoint joinPoint, LoggerManage loggerManage) {
-        logger.info("执行 " + loggerManage.description() + " 结束");
+    @AfterReturning("within(com.lgp.webmanager..*) && @annotation(log)")
+    public void addAfterReturningLogger(JoinPoint joinPoint, Log log) {
+        logger.info("执行 " + log.description() + " 结束");
     }
 
-    @AfterThrowing(pointcut = "within(com.lgp.webmanager..*) && @annotation(loggerManage)", throwing = "ex")
-    public void addAfterThrowingLogger(JoinPoint joinPoint, LoggerManage loggerManage, Exception ex) {
-        logger.error("执行 " + loggerManage.description() + " 异常", ex);
+    @AfterThrowing(pointcut = "within(com.lgp.webmanager..*) && @annotation(log)", throwing = "ex")
+    public void addAfterThrowingLogger(JoinPoint joinPoint, Log log, Exception ex) {
+        logger.error("执行 " + log.description() + " 异常", ex);
     }
 
     private String parseParames(Object[] parames) {

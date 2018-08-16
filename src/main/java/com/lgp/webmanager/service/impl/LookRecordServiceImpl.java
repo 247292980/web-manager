@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.LookRecord;
 import com.lgp.webmanager.domain.Praise;
 import com.lgp.webmanager.domain.CollectSummary;
@@ -39,7 +39,7 @@ public class LookRecordServiceImpl implements LookRecordService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "添加浏览记录")
+    @Log(description = "添加浏览记录")
     public void saveLookRecord(Long userId, Long collectId) {
         if (userId != null && userId > 0 && collectId != null) {
             Integer count = lookRecordRepository.countByUserIdAndCollectId(userId, collectId);
@@ -59,21 +59,21 @@ public class LookRecordServiceImpl implements LookRecordService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "删除浏览记录")
+    @Log(description = "删除浏览记录")
     public void deleteLookRecord(Long userId, Long collectId) {
         lookRecordRepository.deleteByUserIdAndCollectId(userId, collectId);
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "删除浏览记录-用户id")
+    @Log(description = "删除浏览记录-用户id")
     public void deleteLookRecordByUserID(Long userId) {
         lookRecordRepository.deleteByUserId(userId);
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "得到浏览记录")
+    @Log(description = "得到浏览记录")
     public List<CollectSummary> getLookRecords(Long userId, Pageable pageable) {
         Page<CollectSummaryView> views = null;
 

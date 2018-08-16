@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.*;
 import com.lgp.webmanager.domain.enums.StatusEnum;
 import com.lgp.webmanager.domain.view.CollectSummaryView;
@@ -55,7 +55,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "展示收藏列表")
+    @Log(description = "展示收藏列表")
     public List<CollectSummary> getCollects(String type, Long userId, Pageable pageable, Long favoritesId, Long specUserId) {
         Page<CollectSummaryView> views = null;
         if ("my".equals(type)) {
@@ -89,7 +89,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "查询自己")
+    @Log(description = "查询自己")
     public List<CollectSummary> searchMy(Long userId, String key, Pageable pageable) {
         Page<CollectSummaryView> views = collectRepository.searchMyByKey(userId, "%" + key + "%", pageable);
         return convertCollect(views, userId);
@@ -97,7 +97,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "查询他人")
+    @Log(description = "查询他人")
     public List<CollectSummary> searchOther(Long userId, String key, Pageable pageable) {
         Page<CollectSummaryView> views = collectRepository.searchOtherByKey(userId, "%" + key + "%", pageable);
         return convertCollect(views, userId);
@@ -107,7 +107,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      * 收藏文章
      */
     @Override
-    @LoggerManage(description = "收藏文章")
+    @Log(description = "收藏文章")
     @Transactional(rollbackFor = {Exception.class})
     public void saveCollect(Collect collect) {
         if (StringUtils.isNotBlank(collect.getNewFavorites())) {
@@ -134,7 +134,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      * 修改文章
      */
     @Override
-    @LoggerManage(description = "修改文章")
+    @Log(description = "修改文章")
     @Transactional(rollbackFor = {Exception.class})
     public void updateCollect(Collect newCollect) {
         Collect collect = collectRepository.findOne(newCollect.getId());
@@ -171,7 +171,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "收藏别人的文章")
+    @Log(description = "收藏别人的文章")
     public void otherCollect(Collect collect) {
         Collect other = collectRepository.findOne(collect.getId());
         //收藏别人文章默认给点赞
@@ -202,7 +202,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      * 验证是否重复收藏
      */
     @Override
-    @LoggerManage(description = "验证是否重复收藏")
+    @Log(description = "验证是否重复收藏")
     @Transactional(rollbackFor = {Exception.class})
     public boolean checkCollect(Collect collect) {
         if (StringUtils.isNotBlank(collect.getNewFavorites())) {
@@ -246,7 +246,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      * 导入收藏文章
      */
     @Override
-    @LoggerManage(description = "导入收藏文章")
+    @Log(description = "导入收藏文章")
     @Transactional(rollbackFor = {Exception.class})
     public void importHtml(Map<String, String> map, Long favoritesId, Long userId, String type) {
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -296,7 +296,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "导出到html文件")
+    @Log(description = "导出到html文件")
     public StringBuilder exportToHtml(Long favoritesId) {
         try {
             Favorites favorites = favoritesRepository.findOne(favoritesId);
@@ -320,7 +320,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "收藏文章默认点赞")
+    @Log(description = "收藏文章默认点赞")
     public void like(Long userId, long id) {
         Praise praise = praiseRepository.findByUserIdAndCollectId(userId, id);
         if (praise == null) {
@@ -342,7 +342,7 @@ public class CollectServiceImpl extends UrlLibraryServiceImpl implements Collect
     /**
      * 通知好友
      */
-    @LoggerManage(description = "通知好友")
+    @Log(description = "通知好友")
     private void noticeFriends(Collect collect) {
         if (StringUtils.isNotBlank(collect.getRemark()) && collect.getRemark().indexOf("@") > -1) {
             List<String> atUsers = StringUtil.getAtUser(collect.getRemark());

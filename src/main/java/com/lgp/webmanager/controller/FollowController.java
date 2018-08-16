@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Follow;
 import com.lgp.webmanager.domain.enums.ExceptionMsg;
 import com.lgp.webmanager.domain.enums.StatusEnum;
@@ -28,7 +28,7 @@ public class FollowController extends BaseController {
      * 关注&取消关注
      */
     @RequestMapping("/changeFollowStatus")
-    @LoggerManage(description = "关注&取消关注")
+    @Log(description = "关注&取消关注")
     public Response changeFollowStatus(String status, Long userId) {
         try {
             String followStatus = StatusEnum.FOLLOW_STATUS_FOLLOW.getValue();

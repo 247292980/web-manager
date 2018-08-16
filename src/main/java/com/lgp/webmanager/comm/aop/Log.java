@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface LoggerManage {
+public @interface Log {
      String description();
 }

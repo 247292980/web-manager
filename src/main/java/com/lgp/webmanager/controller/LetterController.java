@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Letter;
 import com.lgp.webmanager.domain.enums.ExceptionMsg;
 import com.lgp.webmanager.domain.result.Response;
@@ -35,7 +35,7 @@ public class LetterController extends BaseController {
      * 发送私信
      */
     @RequestMapping("/sendLetter")
-    @LoggerManage(description = "发送私信")
+    @Log(description = "发送私信")
     public Response sendLetter(Letter letter) {
         try {
             letter.setSendUserId(super.getUserId());
@@ -51,7 +51,7 @@ public class LetterController extends BaseController {
      * 私信列表获取
      */
     @RequestMapping("/getLetterList")
-    @LoggerManage(description = "获取私信列表")
+    @Log(description = "获取私信列表")
     public List<LetterSummary> getLetterList(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                              @RequestParam(value = "size", defaultValue = "15") Integer size) {
         Sort sort = new Sort(Sort.Direction.DESC, "id");

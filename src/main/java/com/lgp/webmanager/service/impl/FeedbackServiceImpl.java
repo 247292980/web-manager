@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Feedback;
 import com.lgp.webmanager.repository.FeedbackRepository;
 import com.lgp.webmanager.service.FeedbackService;
@@ -24,7 +24,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "保存")
+    @Log(description = "保存")
     public void saveFeeddback(Feedback feedback,Long userId) {
         feedback.setUserId(userId == null || userId == 0L ? 0L : userId);
         feedback.setCreateTime(DateUtil.getCurrentTime());

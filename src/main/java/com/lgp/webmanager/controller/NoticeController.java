@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Comment;
 import com.lgp.webmanager.domain.Notice;
 import com.lgp.webmanager.domain.enums.ExceptionMsg;
@@ -37,7 +37,7 @@ public class NoticeController extends BaseController {
      * 回复
      */
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
-    @LoggerManage(description = "回复")
+    @Log(description = "回复")
     public Response reply(Comment comment) {
         try {
             comment.setUserId(super.getUserId());
@@ -63,7 +63,7 @@ public class NoticeController extends BaseController {
      * 获取新消息数量
      * */
     @RequestMapping(value = "/getNoticeNum")
-    @LoggerManage(description = "获取新消息数量")
+    @Log(description = "获取新消息数量")
     public ResponseData getNoticeNum() {
         Map<String, Long> result = new HashMap<String, Long>();
         Long newAtMeCount = noticeRepository.countByUserIdAndTypeAndReaded(super.getUserId(), "at", "unread");

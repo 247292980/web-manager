@@ -1,7 +1,7 @@
 package com.lgp.webmanager.comm.schedule;
 
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Collect;
 import com.lgp.webmanager.domain.UrlLibrary;
 import com.lgp.webmanager.domain.enums.StatusEnum;
@@ -46,7 +46,7 @@ public class ScheduledTasks {
      * 秒 分 时 日 月 星期 年
      */
     @Scheduled(cron = "0 0 0 1 * ?")
-    @LoggerManage(description = "回收站定时")
+    @Log(description = "回收站定时")
     public void autoRecovery() {
         Calendar ca = Calendar.getInstance();
         ca.setTime(new Date());
@@ -65,7 +65,7 @@ public class ScheduledTasks {
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
-    @LoggerManage(description = "获取图片logoUrl定时")
+    @Log(description = "获取图片logoUrl定时")
     public void getImageLogoUrl() {
         List<UrlLibrary> urlLibraryList = urlLibraryRepository.findByCountLessThanAndLogoUrl(10, ConstUtil.BASE_PATH + ConstUtil.DEFAULT_LOGO);
         for (UrlLibrary urlLibrary : urlLibraryList) {

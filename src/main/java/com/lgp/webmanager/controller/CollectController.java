@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Collect;
 import com.lgp.webmanager.domain.CollectSummary;
 import com.lgp.webmanager.domain.Favorites;
@@ -66,7 +66,7 @@ public class CollectController extends BaseController {
      * 收藏收集
      */
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
-    @LoggerManage(description = "收藏收集")
+    @Log(description = "收藏收集")
     public Response collect(Collect collect) {
         try {
             if (StringUtils.isBlank(collect.getLogoUrl())) {
@@ -97,7 +97,7 @@ public class CollectController extends BaseController {
      * 获取收藏页面的LogoUrl
      * */
     @RequestMapping(value = "/getCollectLogoUrl", method = RequestMethod.POST)
-    @LoggerManage(description = "获取收藏页面的LogoUrl")
+    @Log(description = "获取收藏页面的LogoUrl")
     public String getCollectLogoUrl(String url) {
         if (StringUtils.isNotBlank(url)) {
             String logoUrl = urlLibraryService.getMap(url);
@@ -115,7 +115,7 @@ public class CollectController extends BaseController {
      * 根据收藏的标题和描述推荐收藏夹
      */
     @RequestMapping(value = "/getFavoriteResult", method = RequestMethod.POST)
-    @LoggerManage(description = "获取推荐收藏夹")
+    @Log(description = "获取推荐收藏夹")
     public Map<String, Object> getFavoriteResult(String title, String description) {
         Long result = null;
         int faultPosition = 0;
@@ -144,7 +144,7 @@ public class CollectController extends BaseController {
      * 收藏列表standard
      * */
     @RequestMapping(value = "/standard/{type}/{favoritesId}/{userId}")
-    @LoggerManage(description = "收藏列表standard")
+    @Log(description = "收藏列表standard")
     public List<CollectSummary> standard(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                          @RequestParam(value = "size", defaultValue = "15") Integer size,
                                          @PathVariable("type") String type,
@@ -176,7 +176,7 @@ public class CollectController extends BaseController {
      * 收藏列表simple
      * */
     @RequestMapping(value = "/simple/{type}/{favoritesId}/{userId}")
-    @LoggerManage(description = "收藏列表simple")
+    @Log(description = "收藏列表simple")
     public List<CollectSummary> simple(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                        @RequestParam(value = "size", defaultValue = "15") Integer size,
                                        @PathVariable("type") String type,
@@ -205,7 +205,7 @@ public class CollectController extends BaseController {
      * 修改收藏类型
      * */
     @RequestMapping(value = "/changePrivacy/{id}/{type}")
-    @LoggerManage(description = "修改收藏类型")
+    @Log(description = "修改收藏类型")
     public Response changePrivacy(@PathVariable("id") long id, @PathVariable("type") String type) {
         collectRepository.modifyByIdAndUserId(type, id, super.getUserId());
         return result();
@@ -216,7 +216,7 @@ public class CollectController extends BaseController {
      *
      * */
     @RequestMapping(value = "/like/{id}")
-    @LoggerManage(description = "收藏点赞或者取消点赞")
+    @Log(description = "收藏点赞或者取消点赞")
     public Response like(@PathVariable("id") long id) {
         try {
             collectService.like(super.getUserId(), id);
@@ -230,7 +230,7 @@ public class CollectController extends BaseController {
      * 取消收藏
      * */
     @RequestMapping(value = "/delete/{id}")
-    @LoggerManage(description = "取消收藏")
+    @Log(description = "取消收藏")
     public Response delete(@PathVariable("id") Long id) {
         Collect collect = collectRepository.findOne(id);
         if (null != collect && super.getUserId().equals(collect.getUserId())) {
@@ -246,7 +246,7 @@ public class CollectController extends BaseController {
      * 收藏详细信息
      * */
     @RequestMapping(value = "/detail/{id}")
-    @LoggerManage(description = "收藏详细信息")
+    @Log(description = "收藏详细信息")
     public Collect detail(@PathVariable("id") long id) {
         Collect collect = collectRepository.findOne(id);
         return collect;
@@ -256,7 +256,7 @@ public class CollectController extends BaseController {
      * 导入收藏夹
      */
     @RequestMapping("/import")
-    @LoggerManage(description = "导入收藏夹操作")
+    @Log(description = "导入收藏夹操作")
     public void importCollect(@RequestParam("htmlFile") MultipartFile htmlFile, String structure, String type) {
         try {
             if (StringUtils.isNotBlank(structure) && StatusEnum.IS_DELETE_YES.getValue().toString().equals(structure)) {
@@ -296,7 +296,7 @@ public class CollectController extends BaseController {
      * 导出收藏夹
      */
     @RequestMapping("/export")
-    @LoggerManage(description = "导出收藏夹")
+    @Log(description = "导出收藏夹")
     public void export(String favoritesId, HttpServletResponse response) {
         if (StringUtils.isNotBlank(favoritesId)) {
             try {
@@ -325,7 +325,7 @@ public class CollectController extends BaseController {
      * 查询我的收藏
      * */
     @RequestMapping(value = "/searchMy/{key}")
-    @LoggerManage(description = "查询我的收藏")
+    @Log(description = "查询我的收藏")
     public List<CollectSummary> searchMy(Model model
             , @RequestParam(value = "page", defaultValue = "0") Integer page
             , @RequestParam(value = "size", defaultValue = "20") Integer size
@@ -341,7 +341,7 @@ public class CollectController extends BaseController {
      * 查询他人的收藏
      * */
     @RequestMapping(value = "/searchOther/{key}")
-    @LoggerManage(description = "查询他人的收藏")
+    @Log(description = "查询他人的收藏")
     public List<CollectSummary> searchOther(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page,
                                             @RequestParam(value = "size", defaultValue = "20") Integer size, @PathVariable("key") String key) {
         Sort sort = new Sort(Direction.DESC, "id");
@@ -354,7 +354,7 @@ public class CollectController extends BaseController {
      * 查询点赞状态及该文章的点赞数量
      */
     @RequestMapping(value = "/getPaiseStatus/{collectId}")
-    @LoggerManage(description = "查询点赞状态及该文章的点赞数量")
+    @Log(description = "查询点赞状态及该文章的点赞数量")
     public Map<String, Object> getPraiseStatus(Model model, @PathVariable("collectId") Long collectId) {
         Map<String, Object> maps = new HashMap<String, Object>();
         Praise praise = praiseRepository.findByUserIdAndCollectId(super.getUserId(), collectId);

@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class FavoritesServiceImpl implements FavoritesService{
 	 */
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
-	@LoggerManage(description = "保存收藏夹")
+	@Log(description = "保存收藏夹")
 	public Favorites saveFavorites(Long userId, Long count, String name){
 		Favorites favorites = new Favorites();
 		favorites.setName(name);

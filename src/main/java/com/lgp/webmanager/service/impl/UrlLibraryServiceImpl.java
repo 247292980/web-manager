@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.UrlLibrary;
 import com.lgp.webmanager.repository.UrlLibraryRepository;
 import com.lgp.webmanager.service.UrlLibraryService;
@@ -29,7 +29,7 @@ public class UrlLibraryServiceImpl implements UrlLibraryService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "得到网页存储记录")
+    @Log(description = "得到网页存储记录")
     public String getMap(String key) {
         if (maps.isEmpty()) {
             List<UrlLibrary> collectLibraryList = urlLibraryRepository.findAll();
@@ -45,7 +45,7 @@ public class UrlLibraryServiceImpl implements UrlLibraryService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "添加网页存储记录")
+    @Log(description = "添加网页存储记录")
     public void addMaps(String key) {
         String logoUrl = HtmlUtil.getImage(key);
         maps.put(key, logoUrl);
@@ -57,7 +57,7 @@ public class UrlLibraryServiceImpl implements UrlLibraryService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "刷新网页存储记录")
+    @Log(description = "刷新网页存储记录")
     public boolean refreshOne(String key, String newValue) {
         if (StringUtils.isNotBlank(key)) {
             String value = getMap(key);

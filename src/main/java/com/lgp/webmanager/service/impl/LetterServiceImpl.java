@@ -1,6 +1,6 @@
 package com.lgp.webmanager.service.impl;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Letter;
 import com.lgp.webmanager.domain.LetterSummary;
 import com.lgp.webmanager.domain.User;
@@ -43,7 +43,7 @@ public class LetterServiceImpl implements LetterService{
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "发送私信")
+    @Log(description = "发送私信")
     public void sendLetter(Letter letter){
         if("original".equals(letter.getSendType())){
             letter.setType(StatusEnum.LETTER_TYPE_ORIGINAL.getValue());
@@ -77,7 +77,7 @@ public class LetterServiceImpl implements LetterService{
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    @LoggerManage(description = "私信信息查询")
+    @Log(description = "私信信息查询")
     public List<LetterSummary> findLetter(Long userId, Pageable pageable){
         List<LetterSummaryView> viewList = letterRepository.findLetterByReceiveUserId(userId,pageable);
         List<LetterSummary> summaryList = new ArrayList<LetterSummary>();

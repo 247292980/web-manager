@@ -1,6 +1,6 @@
 package com.lgp.webmanager.controller;
 
-import com.lgp.webmanager.comm.aop.LoggerManage;
+import com.lgp.webmanager.comm.aop.Log;
 import com.lgp.webmanager.domain.Feedback;
 import com.lgp.webmanager.domain.enums.ExceptionMsg;
 import com.lgp.webmanager.domain.result.Response;
@@ -23,7 +23,7 @@ public class FeedbackController extends BaseController {
     private FeedbackService feedbackService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    @LoggerManage(description = "意见反馈")
+    @Log(description = "意见反馈")
     public Response save(Feedback feedback) {
         try {
             feedbackService.saveFeeddback(feedback, super.getUserId());
